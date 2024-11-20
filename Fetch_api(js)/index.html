@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch_api</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.js"></script>
+</head>
+<body>
+
+  <div id="container"></div>
+
+</body>
+</html>
+
+
+<script>
+    
+
+
+    const api = "https://fakestoreapi.com/products"
+
+    // by fetch
+    // async function FetchData(){
+    //     try {
+    //         const res = await fetch(api)
+    //         let response = await res.json();
+    //         console.log("Fetch API Response:", response)
+    //         DisplayProduct(response)
+            
+    //     } catch (error) {
+    //         console.log(error);
+    //     } 
+        
+    // }
+    // FetchData()
+
+
+// by using axios cnd
+    async function FetchData2(){
+        try {
+            const res = await axios.get(api)
+            // console.log(res);
+            const response = res.data
+            console.log("Axios Response:", response);
+            DisplayProduct(response)
+            
+        } catch (error) {
+            console.log(error); 
+        }
+        
+    }
+    FetchData2()
+
+
+
+    function DisplayProduct(response){
+    const container = document.getElementById("container")
+
+    response.map((ele,ind)=>{
+       const div = document.createElement("div")
+
+       const cato = document.createElement("p").innerText = ele.category
+       const price = document.createElement("p").innerText = ele.price
+       const image = document.createElement("img")
+       image.src = ele.image
+       const rating = document.createElement("p").innerText = ele.rating.rate
+       const title = document.createElement("p").innerText = ele.title
+
+       div.append(rating,cato,price,title,image)
+       container.append(div)
+    })
+    }
+    
+
+   
+
+</script>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register validation form</title>
+</head>
+<body>
+    <form id="form">
+        <input type="text" placeholder="name here.." id="nameINP"/>
+        <div id="errorname"></div>
+
+        <input type="email" placeholder="email here.." id="emailINP"/>
+        <div id="emailError"></div>
+
+        <input type="password" placeholder="password here.." id="passwordINP"/>
+        <div id="passwordError"></div>
+
+        <input type="password" placeholder="confrimPass here.." id="confpasswordINP"/>
+        <div id="confirmPasswordError"></div>
+
+        <input type="submit" id="submitINP" disabled>
+    </form>
+</body>
+</html>
+
+<script>
+
+    
+
+const Form = document.getElementById("form");
+const NameINP = document.getElementById("nameINP");
+const EmailINP = document.getElementById("emailINP");
+const PasswordINP = document.getElementById("passwordINP");
+const ConfrimPasswordINP = document.getElementById("confpasswordINP");
+const SubmitINP = document.getElementById("submitINP");
+
+Form.addEventListener("input",()=>{
+
+    let isValid = true;
+
+    if(NameINP.value.trim() === ""){
+        isValid = false
+        document.getElementById("errorname").textContent = "Name is required"
+    }else{
+        document.getElementById("errorname").textContent = ""
+    }
+
+
+    const emailPattern = /.+@.+\..+/
+    if(!emailPattern.test(EmailINP.value)){
+        isValid = false;
+        document.getElementById("emailError").textContent = "Please enter a valid email";
+    } else {
+        document.getElementById("emailError").textContent = "";
+    }
+    
+    //  password validation
+    const hasUpper = /[A-Z]/.test(PasswordINP.value)
+    const hasNum = /\d/.test(PasswordINP.value)
+
+    if(PasswordINP.value.length < 8 || !hasUpper || !hasNum){
+        isValid = false;
+        document.getElementById("passwordError").textContent = "Password must be at least 8 characters long, with one uppercase letter and one number";
+    } else {
+        document.getElementById("passwordError").textContent = "";
+    }
+
+    // Confirm password validation
+    if (PasswordINP.value !== ConfrimPasswordINP.value) {
+        isValid = false;
+        document.getElementById("confirmPasswordError").textContent = "Passwords do not match";
+    } else {
+        document.getElementById("confirmPasswordError").textContent = "";
+    }
+
+    SubmitINP.disabled = !isValid;
+    
+})
+    
+Form.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    const obj = {
+        Name:NameINP.value,
+        Email:EmailINP.value,
+        Password:PasswordINP.value,
+        ConfrimPassword:ConfrimPasswordINP.value
+    }
+
+console.log(obj);
+
+})
+
+
+</script>

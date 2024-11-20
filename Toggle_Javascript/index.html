@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle</title>
+    <style>
+         .model_content {
+            display: none; /*initialy hide the content*/
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="model" style="display: flex; justify-content: center; align-items: center; height: 50vh;justify-content: space-evenly;">
+        <button id="openbtn">open</button>
+        <div class="model_content">welcome</div>
+        <button id="closebtn">close</button>
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    let ModelContent = document.querySelector('.model_content')
+
+    let open = document.getElementById("openbtn").addEventListener("click",()=>{
+        // console.log("btn clicked");
+        ModelContent.style.display = 'block'
+    })
+
+    let close = document.getElementById("closebtn").addEventListener("click",()=>{
+        // console.log("btn clicked");
+        ModelContent.style.display = 'none'
+    })
+
+</script>

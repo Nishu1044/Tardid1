@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+   <input type="text" placeholder="search name here" id="searchINP">
+   <button id="clearBTN">Clear filter</button>
+    </div>
+
+    <ul id="nameList">
+        <li>Nishu</li>
+        <li>Bittu</li>
+        <li>Red</li>
+        <li>Nupur</li>
+    </ul>
+    
+</body>
+</html>
+
+<script>
+   
+   const SearchINP = document.getElementById("searchINP")
+   const ClearBtn = document.getElementById("clearBTN")
+   const NameList = document.getElementById("nameList")
+   const names = NameList.getElementsByTagName("li")
+
+   function debounce(func,delay){
+    let timer;
+
+    return function(...args){
+     clearTimeout(timer)
+
+     timer = setTimeout(()=>{
+      func(...args)
+     },delay)
+    }
+   }
+
+   
+   function seachInputName(){
+    const searchValue = SearchINP.value.toLowerCase()
+    console.log(searchValue);
+
+    for(let i=0; i<names.length; i++){
+        // console.log("alldata",names[i]); 
+        const nameText = names[i].textContent.toLowerCase()
+
+        if(nameText.indexOf(searchValue) > -1){
+            names[i].style.display = ""
+        }else{
+             names[i].style.display = "none"
+        }
+    }
+    
+   }
+
+   SearchINP.addEventListener("input",debounce(seachInputName,500))
+
+   clearBTN.addEventListener("click",()=>{
+            searchInp.value=""
+            // console.log("clear");
+            for(let i=0; i<names.length; i++){
+                names[i].style.display =""
+            }    
+        })
+
+   
+</script>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        <input
+        type="text"
+        placeholder="name"
+        id="nameInput"
+
+        />
+        <input
+        type="email"
+        placeholder="email"
+        id="emailInput"
+        />
+        <input
+        type="password"
+        placeholder="password"
+        id="passwordInput"
+        />
+        <input
+        type="submit" id="inputsubmit"/>
+    </form>
+</body>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+    </thead>
+    <tbody id="tbody">append</tbody>
+</table>
+</html>
+
+<script>
+
+    let arr = []
+    let tracker = -1
+
+const Form = document.getElementById("form").addEventListener("submit",(e)=>{
+    e.preventDefault()
+    // console.log("clicked");
+
+   const InputName = document.getElementById("nameInput").value
+   const InputEmail = document.getElementById("emailInput").value
+   const InputPass = document.getElementById("passwordInput").value
+   const InputSubmit = document.getElementById("inputsubmit")
+
+
+      // Logging the values
+        // console.log("Name:", InputName);
+        // console.log("Email:", InputEmail);
+        // console.log("Password:", InputPass);
+
+
+     const obj = {
+        Name:InputName,
+        Email:InputEmail,
+        Password:InputPass
+     }  
+     
+     console.log(obj);
+    //  arr.push(obj)
+
+     if(tracker === -1){
+        arr.push(obj)
+     }else{
+     arr[tracker] = obj
+     }
+
+   console.log("arrary",arr);
+
+
+   document.getElementById("nameInput").value = "";
+   document.getElementById("emailInput").value = "";
+   document.getElementById("passwordInput").value = "";
+   tracker = -1;
+
+   DisplayTodoInput()
+   
+})
+
+
+
+function DisplayTodoInput(){
+  
+    const tbody = document.getElementById("tbody")
+    tbody.innerHTML = ""
+    
+
+    arr.map((ele,ind)=>{
+       const trow = document.createElement("tr")
+        
+      const td1 = document.createElement("td")
+      td1.innerText = ele.Name
+
+      const td2 = document.createElement("td")
+      td2.innerText = ele.Email
+
+      const td3 = document.createElement("td")
+      td3.innerText = ele.Password
+
+      const edit = document.createElement("button")
+      edit.innerText = "Edit"
+      edit.addEventListener("click",()=>HandleEdit(ind))
+
+
+      const dlt = document.createElement("button")
+      dlt.innerText = "Delete"
+      dlt.addEventListener("click",()=>HandleDelet(ind))
+
+       trow.append(td1,td2,td3,edit,dlt)
+       tbody.append(trow)
+    })
+
+
+    function HandleEdit(ind){
+    // console.log(ind);
+
+   document.getElementById("nameInput").value = arr[ind].Name;
+   document.getElementById("emailInput").value = arr[ind].Email;
+   document.getElementById("passwordInput").value = arr[ind].Password;
+
+   tracker = ind
+   console.log("tracker ind",tracker);
+    
+   }
+
+
+   function HandleDelet(ind){
+    arr = arr.filter((ele,i)=> i !== ind)
+    DisplayTodoInput()
+   }
+
+}
+
+</script>
